@@ -276,3 +276,43 @@ Xarn Velgor
 Sidious and Xarn Velgor marked the end of the Umbraclan Lords
 ```
 
+# Задание 4. Реализация RAG-бота с техниками промптинга
+
+## Пример успешного запроса
+
+```bash
+> кто такой Drelin Marsh
+
+=== Ответ ===
+Drelin Marsh was a remote planet in the Drelin Marsh system and one of the purest places in the galaxy within the Force.
+
+-------------
+> кто такой Hadrin Solen
+
+=== Ответ ===
+Hadrin Solen is a human male smuggler and warrior. He was a notable figure in the Galactic Civil War and had connections to key characters such as Roghan Marr and Leia Organa.
+
+-------------
+> Что сделал Yodren
+
+=== Ответ ===
+Yodren trained generations of Fluxbound.
+
+-------------
+
+> Кто отец Leia Organa?
+
+=== Ответ ===
+According to the knowledge base, Leia Organa's father is Senator Padmé Amidala of Naboo.
+```
+
+## Пример неуспешного запроса
+
+```bash
+> Что такое Lerfwummer?
+
+=== Ответ ===
+I apologize, but the provided context and knowledge base do not contain any information about "Lerfwummer". Therefore, I must inform you that I do not have enough information to provide a meaningful answer.
+
+-------------
+```
