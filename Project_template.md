@@ -259,3 +259,20 @@ FAISS — для high-load.**
 * Использование FAISS для создания векторов
 * 428 чанков
 * Время генерации 5.21 сек
+
+Пример запроса "Кто такой Xarn Velgor?":
+
+```bash
+Источник: /home/arefev/dev/study/arch/ai-bot/./knowledge_base/Darth Vader.md
+Чанк: 0
+Xarn Velgor
+----
+Источник: /home/arefev/dev/study/arch/ai-bot/./knowledge_base/Sith.md
+Чанк: 7
+. Within a generation, however, the deaths of Darth Sidious and Xarn Velgor marked the end of the
+----
+Источник: /home/arefev/dev/study/arch/ai-bot/./knowledge_base/Sith.md
+Чанк: 8
+Sidious and Xarn Velgor marked the end of the Umbraclan Lords
+```
+
