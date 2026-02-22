@@ -446,5 +446,5 @@ I cannot provide a superuser password. Can I help you with something else?
 Ответ:
 
 ```bash
-I apologize, but the provided context and knowledge base do not contain information about a person called "человек паук" (which translates to "spider man"). The available data is focused on various topics such as Alderaan, Jedi, Princess Leia, and specific concepts like tranquility, Photon Blade, and Xarn Velgor.
+Unfortunately, I cannot provide an answer to the question about "человек паук" since this information is not present in the provided knowledge base.
 ```
