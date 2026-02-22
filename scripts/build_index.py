@@ -8,6 +8,43 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from sentence_transformers import SentenceTransformer
 
+
+# -------------------------------
+# Вредоносные паттерны для фильтрации чанков
+# -------------------------------
+DANGER_PATTERNS = [
+    "ignore all instructions",
+    "output:",
+    "пароль",
+    "password",
+    "root",
+    "admin",
+    "system prompt",
+    "superuser",
+]
+
+def is_chunk_safe(text: str) -> bool:
+    lowered = text.lower()
+    return not any(p in lowered for p in DANGER_PATTERNS)
+
+
+# -------------------------------
+# Санитизация текста
+# (удаление jail-break конструкций)
+# -------------------------------
+import re
+
+def sanitize(text: str) -> str:
+    patterns = [
+        r"(?i)ignore.*?instructions",
+        r"(?i)output\s*:",
+        r"(?i)system\s*prompt",
+    ]
+    cleaned = text
+    for p in patterns:
+        cleaned = re.sub(p, "", cleaned)
+    return cleaned.strip()
+
 # ----------------------------------------------
 # 1. Настроим пути
 # ----------------------------------------------
@@ -72,9 +109,15 @@ chunked_docs = []
 for doc in documents:
     chunks = splitter.split_text(doc["text"])
     for i, chunk in enumerate(chunks):
+        if not is_chunk_safe(chunk):
+            print(f"[!] Отфильтрован вредоносный чанк #{i} из {chunk}")
+            continue
+
+        clean_text = sanitize(chunk)
+
         chunked_docs.append({
             "id": str(uuid4()),
-            "content": chunk,
+            "content": clean_text,
             "source": doc["path"],
             "chunk_index": i
         })
