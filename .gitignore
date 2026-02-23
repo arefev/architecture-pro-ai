@@ -3,3 +3,4 @@ metadata.json
 file_hashes.json
 logs.jsonl
 __pycache__
+.env
