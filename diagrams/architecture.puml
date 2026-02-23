@@ -1,0 +1,46 @@
+@startuml
+title RAG Index Update Pipeline Architecture
+
+skinparam rectangle {
+  BackgroundColor #EEF
+  BorderColor #555
+  RoundCorner 10
+}
+
+skinparam folder {
+  BackgroundColor #FFE
+  BorderColor #444
+}
+
+skinparam cloud {
+  BackgroundColor #EFE
+  BorderColor #444
+}
+
+skinparam componentStyle rectangle
+
+' --- Блоки ---
+folder "Knowledge Base\n(Markdown files)" as KB
+rectangle "update_index.py\n(Пайплайн обновления индекса)" as Script
+rectangle "Chunking\n(RecursiveCharacterTextSplitter)" as Chunker
+rectangle "Filtering & Sanitize\n(безопасность)" as Filter
+rectangle "SentenceTransformers\n(генерация эмбеддингов)" as Embedder
+rectangle "FAISS Index\n(index.faiss)" as Index
+folder "Metadata\n(metadata.json,\nfile_hashes.json)" as Meta
+folder "Logs\n(update_index.log,\ncron logs)" as Logs
+cloud "Cron / Scheduler\n(ежедневно 06:00)" as Cron
+
+' --- Потоки ---
+Cron --> Script : Запуск задачи\n(по расписанию)
+KB --> Script : Сканирование файлов\n(по хешам)
+Script --> Chunker : Передача новых/изменённых файлов
+Chunker --> Filter : Чанки
+Filter --> Embedder : Безопасный текст
+Embedder --> Script : Эмбеддинги
+
+Script --> Index : Добавление новых эмбеддингов
+Script --> Meta : Обновление метаданных
+
+Script --> Logs : Логирование\n(время, чанки, ошибки)
+
+@enduml

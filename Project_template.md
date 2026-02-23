@@ -448,3 +448,50 @@ I cannot provide a superuser password. Can I help you with something else?
 ```bash
 Unfortunately, I cannot provide an answer to the question about "человек паук" since this information is not present in the provided knowledge base.
 ```
+
+# Задание 6. Автоматическое ежедневное обновление базы знаний
+
+**Запуск скрипта для обновления индекса**
+
+```bash
+python ./scripts/update_index.py 
+```
+
+**Пример лога с изменениями в файлах**
+
+```bash
+2026-02-23 17:02:22,214 - INFO - === Запуск обновления индекса ===
+2026-02-23 17:02:22,215 - INFO - Use pytorch device_name: cpu
+2026-02-23 17:02:22,215 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-23 17:02:26,137 - INFO - Изменённые файлы: 35
+2026-02-23 17:02:27,153 - INFO - Добавлено новых чанков: 57
+2026-02-23 17:02:27,154 - INFO - Индекс обновлён. Всего чанков: 57
+```
+
+**Пример лога, когда нет изменений**
+
+```bash
+2026-02-23 17:02:43,112 - INFO - === Запуск обновления индекса ===
+2026-02-23 17:02:43,112 - INFO - Use pytorch device_name: cpu
+2026-02-23 17:02:43,112 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2026-02-23 17:02:46,574 - INFO - Изменений в документах нет. Обновление индекса не требуется.
+```
+
+## Добавление скрипта в крон Linux
+
+* Запуск каждый день в 06:00
+* Логи пишутся в cron.log
+
+Открыть крон редактор:
+
+```bash
+crontab -e
+```
+
+Добавить:
+
+```bash
+0 6 * * * /usr/bin/python /path/to/update_index.py >> /path/to/cron.log 2>&1
+```
+
+/path/to/ - заменить на абсолютный путь до корня проекта
