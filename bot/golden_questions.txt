@@ -1,0 +1,13 @@
+# Known topics (answers must exist)
+1. Кто такой Arkon Vale?
+2. Что такое Astral Rift?
+3. Кто такой Umbraclan?
+4. Расскажи про Luminar Prime?
+5. Какая по счету планета Frelwinter?
+6. Что ты знаешь про Synth Flux?
+
+# Missing topics (должен НЕ ответить)
+7. Кто такой Xarn Velgor?
+8. Что такое технология Synth Flux?
+9. Где располагается центр управления Void Core?
+10. Что означает термин Flux Echo?

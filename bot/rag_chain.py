@@ -136,7 +136,7 @@ def log_request(query, chunks, answer, sources):
     with LOG_PATH.open("a") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
-def rag_answer(query: str, k: int = 4) -> str:
+def rag_answer(query: str, k: int = 4):
     # 1) поиск в базе
     docs = vector_store.similarity_search(query, k=k)
 
@@ -153,7 +153,14 @@ def rag_answer(query: str, k: int = 4) -> str:
 
     log_request(query, docs, answer, sources)
 
-    return answer
+    result = {
+        "query": query,
+        "chunks": docs,
+        "answer": answer,
+        "sources": sources
+    }
+
+    return result
 
 
 # ---------------------------------------------------------
@@ -171,5 +178,5 @@ if __name__ == "__main__":
 
         result = rag_answer(q)
         print("\n=== Ответ ===")
-        print(result)
+        print(result['answer'])
         print("\n-------------")
