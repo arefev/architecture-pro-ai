@@ -263,15 +263,15 @@ FAISS — для high-load.**
 Пример запроса "Кто такой Xarn Velgor?":
 
 ```bash
-Источник: /home/arefev/dev/study/arch/ai-bot/./knowledge_base/Darth Vader.md
+Источник: ./knowledge_base/Darth Vader.md
 Чанк: 0
 Xarn Velgor
 ----
-Источник: /home/arefev/dev/study/arch/ai-bot/./knowledge_base/Sith.md
+Источник: ./knowledge_base/Sith.md
 Чанк: 7
 . Within a generation, however, the deaths of Darth Sidious and Xarn Velgor marked the end of the
 ----
-Источник: /home/arefev/dev/study/arch/ai-bot/./knowledge_base/Sith.md
+Источник: ./knowledge_base/Sith.md
 Чанк: 8
 Sidious and Xarn Velgor marked the end of the Umbraclan Lords
 ```
@@ -495,3 +495,12 @@ crontab -e
 ```
 
 /path/to/ - заменить на абсолютный путь до корня проекта
+
+# Задание 7. Аналитика покрытия и качества базы знаний
+
+## Пример логов
+
+```bash
+{"timestamp": "2026-02-23T15:16:36.373455", "query": "Кто такой Xarn Velgor?", "found_chunks": true, "chunks_count": 4, "answer": "Xarn Velgor — могущественный представитель Umbraclan, мастер Synth Flux и один из ключевых участников событий.", "answer_length": 110, "success": true, "sources": "[Источник: ./knowledge_base/Darth Vader.md — чанк 0]\n\n[Источник: ./knowledge_base/Sith.md — чанк 7]\n\n[Источник: ./knowledge_base/Sith.md — чанк 8]\n\n[Источник: ./knowledge_base/Chewbacca.md — чанк 9]"}
+{"timestamp": "2026-02-23T15:20:11.669012", "query": "Что такое Photon Blade?", "found_chunks": true, "chunks_count": 4, "answer": "Photon Blade is an energy weapon that fired bolts of intense plasma or particle-based energy, often mistaken for lasers. It's a powerful and precise weapon used by the Dusk Imperium.", "answer_length": 182, "success": true, "sources": "[Источник: ./knowledge_base/Blaster.md — чанк 1]\n\n[Источник: ./knowledge_base/Lightsaber.md — чанк 10]\n\n[Источник: ./knowledge_base/Lightsaber.md — чанк 9]\n\n[Источник: ./knowledge_base/Lightsaber.md — чанк 0]"}
+```

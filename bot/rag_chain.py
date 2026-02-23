@@ -3,6 +3,8 @@ import json
 import requests
 import ollama
 
+from datetime import datetime
+from pathlib import Path
 from sentence_transformers import SentenceTransformer
 from langchain_community.vectorstores import FAISS
 
@@ -12,6 +14,7 @@ from langchain_community.vectorstores import FAISS
 # ---------------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 FAISS_INDEX_PATH = os.path.join(BASE_DIR, "vector_index")
+LOG_PATH = Path("logs.jsonl")
 
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
@@ -119,6 +122,19 @@ def ask_ollama(prompt: str):
 # ---------------------------------------------------------
 # 7. Основная функция RAG-бота
 # ---------------------------------------------------------
+def log_request(query, chunks, answer, sources):
+    record = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "query": query,
+        "found_chunks": bool(chunks),
+        "chunks_count": len(chunks),
+        "answer": answer,
+        "answer_length": len(answer or ""),
+        "success": len(answer or "") > 30,
+        "sources": sources,
+    }
+    with LOG_PATH.open("a") as f:
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 def rag_answer(query: str, k: int = 4) -> str:
     # 1) поиск в базе
@@ -129,6 +145,13 @@ def rag_answer(query: str, k: int = 4) -> str:
 
     # 3) LLM через Ollama
     answer = ask_ollama(prompt)
+
+    sources = "\n\n".join(
+        f"[Источник: {d.metadata['source']} — чанк {d.metadata['index']}]"
+        for d in docs
+    )
+
+    log_request(query, docs, answer, sources)
 
     return answer
 
