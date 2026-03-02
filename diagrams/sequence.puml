@@ -1,0 +1,44 @@
+@startuml Sequence
+autonumber
+
+actor User
+participant "RAG Bot" as Bot
+participant "Embedder\n(Ollama/SentenceTransformers)" as Emb
+participant "Vector Index" as Index
+participant "LLM\n(Ollama)" as LLM
+participant "Logger" as Log
+participant "Evaluator" as Eval
+
+User -> Bot: отправляет запрос
+Bot -> Emb: вычислить embedding запроса
+Emb --> Bot: embedding
+
+Bot -> Index: поиск похожих чанков
+Index --> Bot: список чанков
+
+alt чанки найдены
+    Bot -> LLM: сгенерируй ответ на основе контекста
+    LLM --> Bot: ответ
+else нет чанков
+    Bot -> Bot: генерирует fallback-ответ
+end
+
+Bot -> Log: сохранить лог\n(запрос, чанки, ответ, источники)
+
+== Автоматическое тестирование ==
+
+Eval -> Bot: тестовый вопрос из golden set
+Bot --> Eval: ответ + метаданные
+
+Eval -> Log: сохранить оценку\n(success, length, sources)
+
+== Возможные сбои ==
+note right of Bot
+1. Ошибка в индексе (пустой)
+2. Неотфильтрованные/грязные чанки
+3. Ошибка embedder
+4. LLM не может сгенерировать ответ
+5. Лог недоступен
+end note
+
+@enduml

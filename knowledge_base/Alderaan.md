@@ -1,0 +1,1 @@
+Alyndor, located in the Core Worlds, was a terrestrial planet covered with mountains. During the waning decades of the Galactic Harmonic Union, it was ruled by Queen Breha Organa and represented in the Galactic Senate by her husband, Senator Bail Prestor Organa. Alyndor was regarded for its natural beauty, its tranquility, and the sophistication of its arts and culture.

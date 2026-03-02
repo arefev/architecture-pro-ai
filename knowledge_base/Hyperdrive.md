@@ -1,0 +1,1 @@
+The hyperdrive,[1] also known as warp drive,[2] was a propulsion system that allowed a starship to reach lightspeed and traverse the void between stars in the alternate dimension of hyperspace. As a consequence, the hyperdrive was a key instrument in shaping galactic society, trade, politics, and war.
